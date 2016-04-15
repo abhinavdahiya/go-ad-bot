@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/abhinavdahiya/go-messenger-bot"
+	"github.com/abhinavdahiya/go-messenger-dispatcher"
 	"github.com/codegangsta/negroni"
 )
 
@@ -20,12 +21,12 @@ func main() {
 	bind := fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
 	go n.Run(bind)
 
-	log.Printf("%#v\n", callbacks)
-	for callback := range callbacks {
-		log.Printf("[%#v] %s\n", callback.Sender, callback.Message.Text)
+	dp := dispatcher.NewDispatcher()
+	dp.Debug = true
+	dp.AddState(&StartState{})
+	dp.AddState(&HiState{})
 
-		msg := mbotapi.NewMessage(callback.Message.Text)
-		resp, err := bot.Send(callback.Sender, msg, mbotapi.RegularNotif)
-		log.Printf("%#v (%s)", resp, err)
+	for callback := range callbacks {
+		log.Printf("%s", dp.Process(callback, bot))
 	}
 }

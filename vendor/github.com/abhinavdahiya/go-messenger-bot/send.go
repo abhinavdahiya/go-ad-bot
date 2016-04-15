@@ -26,8 +26,8 @@ type Request struct {
 }
 
 type Message struct {
-	Text       string     `json:"text,omitempty"`
-	Attachment Attachment `json:"attachment,omitempty"`
+	Text       string      `json:"text,omitempty"`
+	Attachment *Attachment `json:"attachment,omitempty"`
 }
 
 type Attachment struct {
@@ -70,8 +70,8 @@ func (g GenericTemplate) Validate() error {
 	return nil
 }
 
-func (g *GenericTemplate) AddElement(e Element) {
-	g.Elements = append(g.Elements, e)
+func (g *GenericTemplate) AddElement(e ...Element) {
+	g.Elements = append(g.Elements, e...)
 }
 
 type Element struct {
@@ -80,6 +80,10 @@ type Element struct {
 	ImageURL string   `json:"image_url,omitempty"`
 	Subtitle string   `json:"subtitle,omitempty"`
 	Buttons  []Button `json:"buttons,omitempty"`
+}
+
+func (e *Element) AddButton(b ...Button) {
+	e.Buttons = append(e.Buttons, b...)
 }
 
 type Button struct {
@@ -95,6 +99,10 @@ type ButtonTemplate struct {
 	Buttons []Button `json:"buttons,omitempty"`
 }
 
+func (b *ButtonTemplate) AddButton(bt ...Button) {
+	b.Buttons = append(b.Buttons, bt...)
+}
+
 type ReceiptTemplate struct {
 	TemplateBase
 	RecipientName string            `json:"recipient_name"`
@@ -104,9 +112,9 @@ type ReceiptTemplate struct {
 	Timestamp     int64             `json:"timestamp,omitempty"`
 	URL           string            `json:"order_url,omitempty"`
 	Items         []OrderItem       `json:"elements"`
-	Address       OrderAddress      `json:"address,omitempty"`
+	Address       *OrderAddress     `json:"address,omitempty"`
 	Summary       OrderSummary      `json:"summary"`
-	Adjustments   []OrderAdjustment `json:"adjustments.omitempty"`
+	Adjustments   []OrderAdjustment `json:"adjustments,omitempty"`
 }
 
 type OrderItem struct {

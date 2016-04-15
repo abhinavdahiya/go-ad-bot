@@ -33,6 +33,7 @@ func (bot *BotAPI) MakeRequest(b *bytes.Buffer) (APIResponse, error) {
 	uri := fmt.Sprintf(APIEndpoint, bot.Token)
 
 	req, _ := http.NewRequest("POST", uri, b)
+	req.Header.Set("Content-Type", "application/json")
 	resp, err := bot.Client.Do(req)
 	if err != nil {
 		return APIResponse{}, err
@@ -75,7 +76,7 @@ func (bot *BotAPI) Send(u User, c interface{}, notif string) (APIResponse, error
 			Recipient: u,
 			NotifType: n,
 			Message: Message{
-				Attachment: Attachment{
+				Attachment: &Attachment{
 					Type:    "template",
 					Payload: c.(GenericTemplate),
 				},
@@ -87,7 +88,7 @@ func (bot *BotAPI) Send(u User, c interface{}, notif string) (APIResponse, error
 			Recipient: u,
 			NotifType: n,
 			Message: Message{
-				Attachment: Attachment{
+				Attachment: &Attachment{
 					Type:    "template",
 					Payload: c.(ButtonTemplate),
 				},
@@ -99,7 +100,7 @@ func (bot *BotAPI) Send(u User, c interface{}, notif string) (APIResponse, error
 			Recipient: u,
 			NotifType: n,
 			Message: Message{
-				Attachment: Attachment{
+				Attachment: &Attachment{
 					Type:    "template",
 					Payload: c.(ReceiptTemplate),
 				},
@@ -137,7 +138,7 @@ func (bot *BotAPI) SendFile(u User, path string) (APIResponse, error) {
 
 	usr, _ := json.Marshal(u)
 	_ = writer.WriteField("recipient", string(usr))
-	img := NewImageMesssage("")
+	img := NewImageMessage("")
 	im, _ := json.Marshal(img)
 	_ = writer.WriteField("message", string(im))
 

@@ -20,9 +20,9 @@ func NewMessage(text string) Message {
 	}
 }
 
-func NewImageMesssage(url string) Message {
+func NewImageMessage(url string) Message {
 	return Message{
-		Attachment: Attachment{
+		Attachment: &Attachment{
 			Type: "image",
 			Payload: ImagePayload{
 				URL: url,
@@ -37,6 +37,28 @@ func NewGenericTemplate() GenericTemplate {
 			Type: "generic",
 		},
 		Elements: []Element{},
+	}
+}
+
+func NewElement(title string) Element {
+	return Element{
+		Title: title,
+	}
+}
+
+func NewURLButton(title, url string) Button {
+	return Button{
+		Type:  "web_url",
+		Title: title,
+		URL:   url,
+	}
+}
+
+func NewPostbackButton(title, postback string) Button {
+	return Button{
+		Type:    "postback",
+		Title:   title,
+		Payload: postback,
 	}
 }
 
