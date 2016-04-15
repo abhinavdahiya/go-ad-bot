@@ -114,7 +114,9 @@ func (bot *BotAPI) Send(u User, c interface{}, notif string) (APIResponse, error
 		return APIResponse{}, errors.New("Unknown Error")
 	}
 	payl, _ := json.Marshal(r)
-	log.Printf("PAYLOAD SENT: %s", string(payl))
+	if bot.Debug {
+		log.Printf("[INFO] Payload: %s", string(payl))
+	}
 	return bot.MakeRequest(bytes.NewBuffer(payl))
 }
 

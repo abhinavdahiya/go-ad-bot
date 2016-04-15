@@ -5,7 +5,7 @@
 	"Deps": [
 		{
 			"ImportPath": "github.com/abhinavdahiya/go-messenger-bot",
-			"Rev": "69ef337bcb29449c71c3864d3e36709acfae30f9"
+			"Rev": "ac43fc3658f697f15e7b743d4b4ecac4dae3c3fa"
 		},
 		{
 			"ImportPath": "github.com/codegangsta/negroni",
