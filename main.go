@@ -22,8 +22,9 @@ func main() {
 	bind := fmt.Sprintf("%s:%s", os.Getenv("OPENSHIFT_GO_IP"), os.Getenv("OPENSHIFT_GO_PORT"))
 	go n.Run(bind)
 
+	log.Printf("%#v\n", callbacks)
 	for callback := range callbacks {
-		log.Printf("[%#v] %s", callback.Sender, callback.Message.Text)
+		log.Printf("[%#v] %s\n", callback.Sender, callback.Message.Text)
 
 		msg := mbotapi.NewMessage(callback.Message.Text)
 		bot.Send(callback.Sender, msg, mbotapi.RegularNotif)
