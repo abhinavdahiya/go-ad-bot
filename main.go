@@ -24,6 +24,7 @@ func main() {
 		log.Printf("[%#v] %s\n", callback.Sender, callback.Message.Text)
 
 		msg := mbotapi.NewMessage(callback.Message.Text)
-		bot.Send(callback.Sender, msg, mbotapi.RegularNotif)
+		resp, err := bot.Send(callback.Sender, msg, mbotapi.RegularNotif)
+		log.Printf("%#v (%s)", resp, err)
 	}
 }
