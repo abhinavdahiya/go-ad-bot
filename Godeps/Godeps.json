@@ -9,7 +9,7 @@
 		},
 		{
 			"ImportPath": "github.com/abhinavdahiya/go-messenger-dispatcher",
-			"Rev": "13fee833747bd82961d4f4a1076f21ba927b3902"
+			"Rev": "82e41178429930efe2929790f44ca77755aa1091"
 		},
 		{
 			"ImportPath": "github.com/codegangsta/negroni",

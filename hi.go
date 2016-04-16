@@ -8,8 +8,6 @@ import (
 )
 
 type HiState struct {
-	Enter, Leave dispatcher.Action
-
 	IsMoved bool
 	Chain   string
 }
